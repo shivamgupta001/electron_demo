@@ -18,8 +18,9 @@
 		<form>
 			<label>Select a video</label>
 			<input type="file" accept="video/*">
-			<button>Get info</button>
+			<button type="submit">Get info</button>
 		</form>
+		<h1 id="result"></h1>
 	</div>
 	<script type="text/javascript">
 
@@ -32,6 +33,10 @@
 			const { path } = document.querySelector('input').files[0];
 
 			ipcRenderer.send('video:submit', path);
+		});
+
+		ipcRenderer.on('video:metadata', (event , duration) => {
+			document.getElementById('result').innerText = duration;
 		});
 	</script>
 </body>
